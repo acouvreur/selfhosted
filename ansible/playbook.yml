@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+  - role: gantsign.oh-my-zsh
+    users:
+      - username: acouvreur
+        oh_my_zsh:
+          theme: robbyrussell
+          plugins: 
+            - git
+            - docker
+            - kubectl
+            - zsh-autosuggestions
+
+  tasks:
+  - name: Install required system packages
+    apt:
+      pkg:
+        - nano
+        - curl
+        - wget
+        - jq
+        - rsync
+      state: latest
+      update_cache: true
+
+  - name: Install zsh-autosuggestions
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+
+  - name: Git personal setup email
+    git_config:
+      name: user.email
+      scope: global
+      value: "alexiscouvreur.pro@gmail.com"
+
+  - name: Git personal setup name
+    git_config:
+      name: user.name
+      scope: global
+      value: "Alexis Couvreur"

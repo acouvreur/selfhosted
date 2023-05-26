@@ -1,0 +1,22 @@
+services:
+
+  portainer:
+    image: portainer/portainer-ce:2.18.3
+    container_name: portainer
+    volumes:
+      - /${PIDRIVE}/config/portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - default
+      - proxy
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.portainer-portainer.loadbalancer.server.port=9000
+      - sablier.enable=true
+      - sablier.group=portainer
+
+networks:
+  proxy:
+    external: true
+    name: proxy

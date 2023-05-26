@@ -1,0 +1,26 @@
+http:
+  middlewares:
+
+    filebrowser-sablier:
+      plugin:
+        sablier:
+          group: filebrowser
+          dynamic:
+            displayName: FileBrowser
+            refreshFrequency: 5s
+            showDetails: "true"
+            theme: hacker-terminal
+          sablierUrl: http://sablier:10000
+          sessionDuration: 30m
+
+    portainer-sablier:
+      plugin:
+        sablier:
+          group: portainer
+          dynamic:
+            displayName: Portainer
+            refreshFrequency: 5s
+            showDetails: "true"
+            theme: hacker-terminal
+          sablierUrl: http://sablier:10000
+          sessionDuration: 30m

@@ -1,0 +1,81 @@
+version: "3.4"
+
+services:
+
+  #rclone:
+  #  image: rclone/rclone:1.62.2
+  #  container_name: rclone
+  #  volumes:
+  #    - ${PIDRIVE}/config/backup:/config/rclone
+  #  user: "${UID}:${GID}"
+  #  command: tail -f /dev/null
+  #  restart: unless-stopped
+
+  syncthing:
+    image: linuxserver/syncthing:1.23.4
+    container_name: syncthing
+    hostname: syncthing
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - ${PIDRIVE}/config/syncthing:/config
+      - ${PIDRIVE}/syncthing:/folders
+    ports:
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.syncthing-backup.loadbalancer.server.port=8384
+
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    command: filebrowser --disable-preview-resize --disable-type-detection-by-header --disable-thumbnails --disable-exec --cache-dir /var/cache
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - ${PIDRIVE}/:/srv    
+      - ${PIDRIVE}/config/filebrowser/filebrowser.db:/database/filebrowser.db
+    tmpfs:
+      - /var/cache
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - sablier.enable=true
+      - sablier.group=filebrowser
+
+  piwigo:
+    image: linuxserver/piwigo:13.7.0
+    container_name: piwigo
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - ${PIDRIVE}/config/piwigo:/config
+      -  ${PIDRIVE}/syncthing:/gallery
+    networks:
+      - default
+      - proxy
+    restart: unless-stopped    
+    labels:
+      - traefik.enable=true
+      - sablier.enable=true
+      - sablier.group=piwigo
+
+networks:
+  proxy:
+    external: true
+    name: proxy

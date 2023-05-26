@@ -1,0 +1,139 @@
+version: "3.7"
+
+services:
+
+  plex:
+    image: linuxserver/plex:1.32.1
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - VERSION=docker
+    volumes:
+      - ${PIDRIVE}/config/plex:/config
+      - ${PIDRIVE}/media/tvshows:/tv
+      - ${PIDRIVE}/media/movies:/movies
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.plex-media.loadbalancer.server.port=32400
+
+  #-------------------------------------#
+  # Transmission : torrent manager
+  #-------------------------------------#
+  transmission:
+    image: haugene/transmission-openvpn:5.0.2
+    container_name: transmission
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - UMASK=022
+      - TRANSMISSION_WEB_UI=combustion
+      - OPENVPN_PROVIDER=custom
+      - OPENVPN_CONFIG=hotspot-shield-united-states
+      - OPENVPN_USERNAME
+      - OPENVPN_PASSWORD
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      - LOCAL_NETWORK=192.168.0.0/24
+      - LOG_TO_STDOUT=true
+      - TRANSMISSION_DOWNLOAD_DIR=${PIDRIVE}/media/downloads/complete
+      - TRANSMISSION_INCOMPLETE_DIR=${PIDRIVE}/media/downloads/incomplete
+      - TRANSMISSION_WATCH_DIR=${PIDRIVE}/media/downloads/watch
+      - SELFHEAL=true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${PIDRIVE}/config/transmission:/config
+      - ${PIDRIVE}/config/vpn:/etc/openvpn/custom/
+      - ${PIDRIVE}/media/downloads:${PIDRIVE}/media/downloads
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.transmission-media.loadbalancer.server.port=9091
+
+  #-------------------------------------#
+  # Sonarr : tvshow manager
+  #-------------------------------------#
+  sonarr:
+    image: linuxserver/sonarr:3.0.10
+    container_name: sonarr
+    volumes:
+      - ${PIDRIVE}/config/sonarr:/config
+      - ${PIDRIVE}/media:${PIDRIVE}/media
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - UMASK=022
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+
+  #-------------------------------------#
+  # Radarr : movie manager
+  #-------------------------------------#
+  radarr:
+    image: linuxserver/radarr:4.4.4
+    container_name: radarr
+    volumes:
+      - ${PIDRIVE}/config/radarr:/config
+      - ${PIDRIVE}/media:${PIDRIVE}/media
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - UMASK=022
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+
+  #-------------------------------------#
+  # Tautulli : plex monitoring stack
+  #-------------------------------------#
+  tautulli:
+    image: linuxserver/tautulli:2.12.3
+    container_name: tautulli
+    volumes:
+      - ${PIDRIVE}/config/tautulli:/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+
+  #-------------------------------------#
+  # Tautulli-Hue-Cinema : Webhook for hue
+  #-------------------------------------#
+  tautulli-hue-cinema:
+    image: acouvreur/tautulli-hue-cinema:latest
+    container_name: tautulli-hue-cinema
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - LIGHT_GROUP_ID=1
+      - HUE_USERNAME
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+    name: proxy
