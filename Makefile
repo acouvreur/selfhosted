@@ -22,22 +22,22 @@ create-proxy-network:
 	docker network create --attachable proxy
 
 start-pihole:
-	docker compose --env-file .env -p pihole -f services/pihole/docker-compose.yml up -d
+	docker compose --env-file .env -p pihole -f services/pihole/compose.yml up -d
 
 start-proxy:
-	docker compose --env-file .env -p proxy -f services/proxy/docker-compose.yml up -d
+	docker compose --env-file .env -p proxy -f services/proxy/compose.yml up -d
 
 start-media:
-	docker compose --env-file .env -p media -f services/media/docker-compose.yml up -d
+	docker compose --env-file .env -p media -f services/media/compose.yml up -d
 
 start-homeassistant:
-	docker compose --env-file .env -p hass -f services/homeassistant/docker-compose.yml up -d
+	docker compose --env-file .env -p hass -f services/homeassistant/compose.yml up -d
 
 start-wireguard:
-	docker compose --env-file .env -p wireguard -f services/wireguard/docker-compose.yml up -d
+	docker compose --env-file .env -p wireguard -f services/wireguard/compose.yml up -d
 
 start-backup:
-	docker compose --env-file .env -p backup -f services/backup/docker-compose.yml up -d
+	docker compose --env-file .env -p backup -f services/backup/compose.yml up -d
 
 start-portainer:
-	docker compose --env-file .env -p portainer -f services/portainer/docker-compose.yml up -d
+	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d
