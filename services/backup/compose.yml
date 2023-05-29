@@ -65,7 +65,8 @@ services:
       - TZ
     volumes:
       - ${PIDRIVE}/config/piwigo:/config
-      -  ${PIDRIVE}/syncthing:/gallery
+      - ${PIDRIVE}/piwigo:/gallery
+      - ${PIDRIVE}/syncthing:/syncthing
     networks:
       - default
       - proxy
@@ -74,6 +75,23 @@ services:
       - traefik.enable=true
       - sablier.enable=true
       - sablier.group=piwigo
+  
+  piwigo-db:
+    container_name: piwigo-db
+    image: linuxserver/mariadb:10.11.3
+    networks:
+      - default
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - MYSQL_ROOT_PASSWORD=replace
+      - MYSQL_DATABASE=piwigo
+      - MYSQL_USER=piwigo
+      - MYSQL_PASSWORD=replace
+    volumes:
+      - ${PIDRIVE}/config/piwigo-db:/config
+    restart: unless-stopped
 
 networks:
   proxy:
