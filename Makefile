@@ -41,3 +41,6 @@ start-backup:
 
 start-portainer:
 	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d
+
+start-monitoring:
+	docker compose --env-file .env -p monitoring -f services/monitoring/compose.yml up -d
