@@ -100,6 +100,25 @@ services:
     labels:
       - traefik.enable=true
 
+  #-------------------------------------#1
+  # Prowlarr : tvshow manager
+  #-------------------------------------#
+  prowlarr:
+    image: linuxserver/prowlarr:1.4.1
+    container_name: prowlarr
+    volumes:
+      - ${PIDRIVE}/config/prowlarr:/config
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+
   #-------------------------------------#
   # Tautulli : plex monitoring stack
   #-------------------------------------#
