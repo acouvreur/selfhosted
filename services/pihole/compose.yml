@@ -19,7 +19,7 @@ services:
       - DHCP_END=192.168.0.200
       - DHCP_ROUTER=192.168.0.1
       - DNSMASQ_LISTENING=local
-      - FTLCONF_LOCAL_IPV4=192.168.0.2
+      - FTLCONF_LOCAL_IPV4=$HOST_IP
       - PIHOLE_DNS_=8.8.8.8;8.8.4.4
       - TZ
       - WEB_PORT=8080 # Change default port 80 that conflicts with the Reverse Proxy on mode "host"
@@ -29,3 +29,6 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.pihole-pihole.loadbalancer.server.port=8080

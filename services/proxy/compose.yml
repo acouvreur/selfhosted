@@ -9,10 +9,11 @@ services:
     hostname: traefik
     container_name: proxy
     image: traefik:v2.10.1
+    extra_hosts:
+      - host.docker.internal:$HOST_IP
     ports:
       - 80:80
       - 443:443
-      - 8081:8080
     command: 
       - --api.dashboard=true
       - --api.insecure=true
