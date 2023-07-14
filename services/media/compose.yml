@@ -35,7 +35,7 @@ services:
       - UMASK=022
       - TRANSMISSION_WEB_UI=combustion
       - OPENVPN_PROVIDER=custom
-      - OPENVPN_CONFIG=hotspot-shield-united-states
+      - OPENVPN_CONFIG
       - OPENVPN_USERNAME
       - OPENVPN_PASSWORD
       - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
