@@ -44,6 +44,7 @@ services:
       - TRANSMISSION_DOWNLOAD_DIR=${PIDRIVE}/media/downloads/complete
       - TRANSMISSION_INCOMPLETE_DIR=${PIDRIVE}/media/downloads/incomplete
       - TRANSMISSION_WATCH_DIR=${PIDRIVE}/media/downloads/watch
+      - TRANSMISSION_UMASK=2
       - SELFHEAL=true
     volumes:
       - /etc/localtime:/etc/localtime:ro
