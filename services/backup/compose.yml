@@ -57,7 +57,7 @@ services:
       - sablier.group=filebrowser
 
   piwigo:
-    image: linuxserver/piwigo:13.7.0
+    image: linuxserver/piwigo:13.8.0
     container_name: piwigo
     environment:
       - PUID
