@@ -78,7 +78,7 @@ services:
   
   piwigo-db:
     container_name: piwigo-db
-    image: linuxserver/mariadb:10.11.4
+    image: linuxserver/mariadb:10.11.5
     networks:
       - default
     environment:
