@@ -24,7 +24,7 @@ services:
   # Transmission : torrent manager
   #-------------------------------------#
   transmission:
-    image: haugene/transmission-openvpn:5.0.2
+    image: haugene/transmission-openvpn:5.2.0
     container_name: transmission
     cap_add:
       - NET_ADMIN
