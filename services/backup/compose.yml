@@ -56,43 +56,6 @@ services:
       - sablier.enable=true
       - sablier.group=filebrowser
 
-  piwigo:
-    image: linuxserver/piwigo:13.8.0
-    container_name: piwigo
-    environment:
-      - PUID
-      - PGID
-      - TZ
-    volumes:
-      - ${PIDRIVE}/config/piwigo:/config
-      - ${PIDRIVE}/piwigo:/gallery
-      - ${PIDRIVE}/syncthing:/syncthing
-    networks:
-      - default
-      - proxy
-    restart: unless-stopped    
-    labels:
-      - traefik.enable=true
-      - sablier.enable=true
-      - sablier.group=piwigo
-  
-  piwigo-db:
-    container_name: piwigo-db
-    image: linuxserver/mariadb:10.11.5
-    networks:
-      - default
-    environment:
-      - PUID
-      - PGID
-      - TZ
-      - MYSQL_ROOT_PASSWORD=replace
-      - MYSQL_DATABASE=piwigo
-      - MYSQL_USER=piwigo
-      - MYSQL_PASSWORD=replace
-    volumes:
-      - ${PIDRIVE}/config/piwigo-db:/config
-    restart: unless-stopped
-
 networks:
   proxy:
     external: true
