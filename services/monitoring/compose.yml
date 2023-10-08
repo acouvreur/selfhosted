@@ -20,6 +20,24 @@ services:
       - traefik.enable=true
       - traefik.http.services.monitoring-scrutiny.loadbalancer.server.port=8080
 
+  speedtest:
+    container_name: speedtest
+    image: ghcr.io/alexjustesen/speedtest-tracker:v0.11.17
+    volumes:
+        - ${PIDRIVE}/config/speedtest:/config
+    environment:
+        - TZ
+        - PGID
+        - PUID
+        - AUTH=false
+    restart: unless-stopped
+    networks:
+      - proxy
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.monitoring-speedtest.loadbalancer.server.port=80
+
 networks:
   proxy:
     external: true
