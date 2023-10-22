@@ -143,15 +143,41 @@ services:
   # Tautulli-Hue-Cinema : Webhook for hue
   #-------------------------------------#
   tautulli-hue-cinema:
-    image: acouvreur/tautulli-hue-cinema:latest
+    image: acouvreur/tautulli-hue-cinema:2.0.2
     container_name: tautulli-hue-cinema
     environment:
       - PUID
       - PGID
       - TZ
-      - LIGHT_GROUP_ID=1
+      - HUE_BRIDGE_HOST
       - HUE_USERNAME
+      - HUE_GROUP_ID
     restart: unless-stopped
+
+  #-------------------------------------#
+  # Scanservjs: SANE scanner nodejs web ui 
+  #-------------------------------------#
+  scanner:
+    image: acouvreur/scanservjs:v2.27.0
+    build:
+      dockerfile: scanservjs/Dockerfile
+    container_name: scanner
+    privileged: true
+    devices:
+      - /dev/bus/usb/001:/dev/bus/usb/001
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - ${PIDRIVE}/config/scanservjs:/app/config
+      - ${PIDRIVE}/scaned-files:/app/data/output
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
 
 networks:
   proxy:
