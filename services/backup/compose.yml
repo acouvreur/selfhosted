@@ -12,7 +12,7 @@ services:
   #  restart: unless-stopped
 
   syncthing:
-    image: linuxserver/syncthing:1.25.0
+    image: linuxserver/syncthing:1.26.1
     container_name: syncthing
     hostname: syncthing
     environment:
