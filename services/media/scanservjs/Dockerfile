@@ -1,5 +1,5 @@
 # See http://download.ebz.epson.net/man/linux/epsonscan2_e.html#sec5-1-4
-FROM sbs20/scanservjs:v2.27.0
+FROM sbs20/scanservjs:v3.0.3
 
 RUN apt-get update \
   && apt-get install -y wget
