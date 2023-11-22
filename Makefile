@@ -30,14 +30,8 @@ start-proxy:
 start-media:
 	docker compose --env-file .env -p media -f services/media/compose.yml up -d --remove-orphans
 
-start-homeassistant:
-	docker compose --env-file .env -p hass -f services/homeassistant/compose.yml up -d --remove-orphans
-
 start-wireguard:
 	docker compose --env-file .env -p wireguard -f services/wireguard/compose.yml up -d --remove-orphans
-
-start-backup:
-	docker compose --env-file .env -p backup -f services/backup/compose.yml up -d --remove-orphans
 
 start-portainer:
 	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d --remove-orphans
@@ -47,4 +41,4 @@ start-monitoring:
 
 .DEFAULT_GOAL := all
 .PHONY : all
-all : start-pihole start-proxy start-media start-wireguard start-backup start-portainer start-monitoring
+all : start-pihole start-proxy start-media start-wireguard start-portainer start-monitoring
