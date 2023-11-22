@@ -30,6 +30,7 @@ services:
         - PGID
         - PUID
         - AUTH=false
+        - APP_KEY=${SPEEDTEST_APP_KEY}
     restart: unless-stopped
     networks:
       - proxy
