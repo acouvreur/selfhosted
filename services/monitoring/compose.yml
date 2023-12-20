@@ -22,7 +22,7 @@ services:
 
   speedtest:
     container_name: speedtest
-    image: ghcr.io/alexjustesen/speedtest-tracker:v0.13.4
+    image: ghcr.io/alexjustesen/speedtest-tracker:v0.14.1
     volumes:
         - ${PIDRIVE}/config/speedtest:/config
     environment:
