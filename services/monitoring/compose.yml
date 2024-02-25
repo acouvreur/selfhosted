@@ -3,7 +3,7 @@ version: '3.9'
 services:
   scrutiny:
     container_name: scrutiny
-    image: ghcr.io/analogj/scrutiny:v0.7.2-omnibus
+    image: ghcr.io/analogj/scrutiny:v0.7.3-omnibus
     cap_add:
       - SYS_RAWIO
     devices:
