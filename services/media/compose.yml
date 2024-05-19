@@ -124,7 +124,7 @@ services:
   # Tautulli : plex monitoring stack
   #-------------------------------------#
   tautulli:
-    image: linuxserver/tautulli:2.13.4
+    image: linuxserver/tautulli:2.14.2
     container_name: tautulli
     volumes:
       - ${PIDRIVE}/config/tautulli:/config
