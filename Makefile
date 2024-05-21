@@ -21,24 +21,24 @@ install-docker-compose:
 create-proxy-network:
 	docker network create --attachable proxy
 
-start-pihole:
+pihole:
 	docker compose --env-file .env -p pihole -f services/pihole/compose.yml up -d --remove-orphans
 
-start-proxy:
+proxy:
 	docker compose --env-file .env -p proxy -f services/proxy/compose.yml up -d --remove-orphans
 
-start-media:
+media:
 	docker compose --env-file .env -p media -f services/media/compose.yml up -d --remove-orphans
 
-start-wireguard:
+wireguard:
 	docker compose --env-file .env -p wireguard -f services/wireguard/compose.yml up -d --remove-orphans
 
-start-portainer:
+portainer:
 	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d --remove-orphans
 
-start-monitoring:
+monitoring:
 	docker compose --env-file .env -p monitoring -f services/monitoring/compose.yml up -d --remove-orphans
 
 .DEFAULT_GOAL := all
 .PHONY : all
-all : start-pihole start-proxy start-media start-wireguard start-portainer start-monitoring
+all : pihole proxy media wireguard portainer monitoring
