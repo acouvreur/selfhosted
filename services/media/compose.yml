@@ -154,6 +154,16 @@ services:
       - HUE_GROUP_ID
     restart: unless-stopped
 
+  sponsor-block-tv:
+    image: ghcr.io/dmunozv04/isponsorblocktv:v2.0.6
+    container_name: sponsor-block-tv
+    volumes:
+    -  ${PIDRIVE}/config/sponsor-block-tv:/app/data
+    environment:
+      - PUID
+      - PGID
+      - TZ
+
 networks:
   proxy:
     external: true
