@@ -63,7 +63,7 @@ services:
   # Sonarr : tvshow manager
   #-------------------------------------#
   sonarr:
-    image: linuxserver/sonarr:4.0.4
+    image: linuxserver/sonarr:4.0.5
     container_name: sonarr
     volumes:
       - ${PIDRIVE}/config/sonarr:/config
