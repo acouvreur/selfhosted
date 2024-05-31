@@ -155,7 +155,7 @@ services:
     restart: unless-stopped
 
   sponsor-block-tv:
-    image: ghcr.io/dmunozv04/isponsorblocktv:v2.0.6
+    image: ghcr.io/dmunozv04/isponsorblocktv:v2.0.8
     container_name: sponsor-block-tv
     volumes:
     -  ${PIDRIVE}/config/sponsor-block-tv:/app/data
