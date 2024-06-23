@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:v0.8.1-omnibus
+    cap_add:
+      - SYS_RAWIO
+    devices:
+      - /dev/sda
+    volumes:
+      - ${PIDRIVE}/config/scrutiny:/opt/scrutiny/config
+      - ${PIDRIVE}/scrutiny:/opt/scrutiny/influxdb
+      - /run/udev:/run/udev:ro
+    restart: unless-stopped
+    networks:
+      - proxy
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.monitoring-scrutiny.loadbalancer.server.port=8080
+
+  speedtest:
+    container_name: speedtest
+    image: ghcr.io/alexjustesen/speedtest-tracker:v0.19.0
+    volumes:
+        - ${PIDRIVE}/config/speedtest:/config
+    environment:
+        - TZ
+        - PGID
+        - PUID
+        - AUTH=false
+        - APP_KEY=${SPEEDTEST_APP_KEY}
+    restart: unless-stopped
+    networks:
+      - proxy
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.monitoring-speedtest.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+    name: proxy
