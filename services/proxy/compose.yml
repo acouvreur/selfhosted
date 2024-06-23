@@ -61,17 +61,15 @@ services:
       - traefik.http.routers.proxy.service=api@internal
 
   sablier:
-    image: acouvreur/sablier:beta
+    image: acouvreur/sablier:1.7.0
     container_name: sablier
     command:
       - start
       - --provider.name=docker
-      - --storage.file=/config/state.json
     networks:
       - default
       - proxy
     volumes:
-      - ${PIDRIVE}/config/sablier:/config/
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 # This does not work, because all it does is create a mount from file path of current host
