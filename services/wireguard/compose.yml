@@ -6,7 +6,7 @@ services:
   # Wireguard : Fast VPN
   #-------------------------------------#
   wireguard:
-    image: lscr.io/linuxserver/wireguard:v1.0.20210914-ls116
+    image: lscr.io/linuxserver/wireguard:1.0.20210914
     container_name: wireguard
     cap_add:
       - NET_ADMIN
