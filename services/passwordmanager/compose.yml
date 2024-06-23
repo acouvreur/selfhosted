@@ -1,0 +1,32 @@
+---
+version: "3.8"
+
+services:
+  bitwarden:
+    image: bitwarden/self-host:2024.6.1-beta
+    container_name: bitwarden
+    environment:
+      - BW_DOMAIN
+      - BW_DB_PROVIDER=sqlite
+      - BW_INSTALLATION_ID
+      - BW_INSTALLATION_KEY
+      - globalSettings__mail__replyToEmail
+      - globalSettings__mail__smtp__host=smtp.gmail.com
+      - globalSettings__mail__smtp__port=587
+      - globalSettings__mail__smtp__ssl=true
+      - globalSettings__mail__smtp__username
+      - globalSettings__mail__smtp__password
+    volumes:
+      -  ${PIDRIVE}/config/bitwarden:/etc/bitwarden
+    networks:
+      - proxy
+      - default
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.bitwarden.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
+    name: proxy

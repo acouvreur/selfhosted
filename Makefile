@@ -36,9 +36,9 @@ wireguard:
 portainer:
 	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d --remove-orphans
 
-monitoring:
-	docker compose --env-file .env -p monitoring -f services/monitoring/compose.yml up -d --remove-orphans
+passwordmanager:
+	docker compose --env-file .env -p passwordmanager -f services/passwordmanager/compose.yml up -d --remove-orphans
 
 .DEFAULT_GOAL := all
 .PHONY : all
-all : pihole proxy media wireguard portainer monitoring
+all : pihole proxy media wireguard portainer passwordmanager
