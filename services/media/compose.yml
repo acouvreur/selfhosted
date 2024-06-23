@@ -47,7 +47,7 @@ services:
   # Transmission : torrent manager
   #-------------------------------------#
   transmission:
-    image: linuxserver/transmission:4.0.6
+    image: linuxserver/transmission:2021.11.18
     container_name: transmission
     network_mode: service:gluetun
     depends_on:
