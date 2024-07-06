@@ -41,7 +41,9 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.services.gluetun-media.loadbalancer.server.port=9091
+      - traefik.http.routers.transmission.rule=Host(`transmission.${DOMAINNAME}`)
+      - traefik.http.routers.transmission.service=transmission@docker
+      - traefik.http.services.transmission.loadbalancer.server.port=9091
 
   #-------------------------------------#
   # Transmission : torrent manager
