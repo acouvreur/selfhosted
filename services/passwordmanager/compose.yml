@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   bitwarden:
-    image: bitwarden/self-host:2024.7.1-beta
+    image: bitwarden/self-host:2024.8.2-beta
     container_name: bitwarden
     environment:
       - BW_DOMAIN
