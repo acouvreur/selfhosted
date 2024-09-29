@@ -21,7 +21,7 @@ services:
       - traefik.http.services.plex-media.loadbalancer.server.port=32400
 
   gluetun:
-    image: qmcgaw/gluetun:v3.39.0
+    image: qmcgaw/gluetun:v3.39.1
     container_name: gluetun
     devices:
       - /dev/net/tun:/dev/net/tun
