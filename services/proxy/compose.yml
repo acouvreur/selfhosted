@@ -61,7 +61,7 @@ services:
       - traefik.http.routers.proxy.service=api@internal
 
   sablier:
-    image: acouvreur/sablier:1.7.0
+    image: acouvreur/sablier:1.8.0
     container_name: sablier
     command:
       - start
