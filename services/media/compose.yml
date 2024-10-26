@@ -90,7 +90,7 @@ services:
   # Radarr : movie manager
   #-------------------------------------#
   radarr:
-    image: linuxserver/radarr:5.11.0
+    image: linuxserver/radarr:5.14.0
     container_name: radarr
     volumes:
       - ${PIDRIVE}/config/radarr:/config
