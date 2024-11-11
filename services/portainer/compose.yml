@@ -1,5 +1,4 @@
 services:
-
   portainer:
     image: portainer/portainer-ce:2.23.0
     container_name: portainer
