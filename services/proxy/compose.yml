@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
 
   #-------------------------------------#
@@ -38,8 +36,8 @@ services:
       - --providers.docker.network=proxy
       - --providers.docker.defaultRule=Host(`{{ index .Labels "com.docker.compose.service" }}.${DOMAINNAME}`)
       # - --providers.file.filename=/var/run/dynamic-config
-      - --experimental.plugins.sablier.modulename=github.com/acouvreur/sablier
-      - --experimental.plugins.sablier.version=v1.4.0-beta.3
+      - --experimental.plugins.sablier.modulename=github.com/sablierapp/sablier
+      - --experimental.plugins.sablier.version=v1.8.1
     environment:
       - OVH_ENDPOINT
       - OVH_APPLICATION_KEY
@@ -61,7 +59,7 @@ services:
       - traefik.http.routers.proxy.service=api@internal
 
   sablier:
-    image: acouvreur/sablier:1.8.0
+    image: sablierapp/sablier:1.8.1
     container_name: sablier
     command:
       - start
