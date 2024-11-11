@@ -1,30 +1,29 @@
----
-version: "3.8"
-
 services:
-  bitwarden:
-    image: bitwarden/self-host:2024.10.2-beta
-    container_name: bitwarden
+  vaultwarden:
+    image: vaultwarden/server:1.32.4
+    container_name: vaultwarden
     environment:
-      - BW_DOMAIN
-      - BW_DB_PROVIDER=sqlite
-      - BW_INSTALLATION_ID
-      - BW_INSTALLATION_KEY
-      - globalSettings__mail__replyToEmail
-      - globalSettings__mail__smtp__host=smtp.gmail.com
-      - globalSettings__mail__smtp__port=587
-      - globalSettings__mail__smtp__ssl=true
-      - globalSettings__mail__smtp__username
-      - globalSettings__mail__smtp__password
+      - DOMAIN=https://vaultwarden.${DOMAINNAME}
+      - WEB_VAULT_ENABLED=true
+      - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_FROM
+      - SMTP_PORT=587
+      - SMTP_SECURITY=starttls
+      - SMTP_USERNAME
+      - SMTP_PASSWORD
+      - PUSH_ENABLED=true
+      - PUSH_INSTALLATION_ID=${BW_INSTALLATION_ID}
+      - PUSH_INSTALLATION_KEY= ${BW_INSTALLATION_KEY}
     volumes:
-      -  ${PIDRIVE}/config/bitwarden:/etc/bitwarden
+      - ${PIDRIVE}/config/vaultwarden-data/:/data/
     networks:
       - proxy
       - default
-    restart: always
+    restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.services.bitwarden.loadbalancer.server.port=8080
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=80
 
 networks:
   proxy:
