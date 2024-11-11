@@ -22,23 +22,26 @@ create-proxy-network:
 	docker network create --attachable proxy
 
 pihole:
-	docker compose --env-file .env -p pihole -f services/pihole/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p pihole -f services/pihole/compose.yml up -d --remove-orphans
 
 proxy:
-	docker compose --env-file .env -p proxy -f services/proxy/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p proxy -f services/proxy/compose.yml up -d --remove-orphans
 
 media:
-	docker compose --env-file .env -p media -f services/media/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p media -f services/media/compose.yml up -d --remove-orphans
 
 wireguard:
-	docker compose --env-file .env -p wireguard -f services/wireguard/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p wireguard -f services/wireguard/compose.yml up -d --remove-orphans
 
 portainer:
-	docker compose --env-file .env -p portainer -f services/portainer/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p portainer -f services/portainer/compose.yml up -d --remove-orphans
 
 passwordmanager:
-	docker compose --env-file .env -p passwordmanager -f services/passwordmanager/compose.yml up -d --remove-orphans
+	docker --context raspberrypi compose --env-file .env -p passwordmanager -f services/passwordmanager/compose.yml up -d --remove-orphans
+	
+hass:
+	docker --context raspberrypi compose --env-file .env -p hass -f services/homeassistant/compose.yml up -d --remove-orphans
 
 .DEFAULT_GOAL := all
 .PHONY : all
-all : pihole proxy media wireguard portainer passwordmanager
+all : pihole proxy media wireguard portainer passwordmanager hass

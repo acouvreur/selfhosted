@@ -1,0 +1,24 @@
+services:
+  homeassistant:
+    container_name: hass
+    image: homeassistant/home-assistant:2024.11
+    volumes:
+      - ${PIDRIVE}/config/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    environment:
+      - TZ
+      - PUID
+      - GUID
+    restart: unless-stopped
+    networks:
+      - proxy
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.homeassistant-hass.loadbalancer.server.port=8123
+
+networks:
+  proxy:
+    external: true
+    name: proxy
