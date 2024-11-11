@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
 
   plex:
@@ -19,6 +17,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.plex-media.loadbalancer.server.port=32400
+    mem_limit: 512m
 
   gluetun:
     image: qmcgaw/gluetun:v3.39.1
@@ -44,6 +43,7 @@ services:
       - traefik.http.routers.transmission.rule=Host(`transmission.${DOMAINNAME}`)
       - traefik.http.routers.transmission.service=transmission@docker
       - traefik.http.services.transmission.loadbalancer.server.port=9091
+    mem_limit: 512m
 
   #-------------------------------------#
   # Transmission : torrent manager
@@ -64,6 +64,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${PIDRIVE}/config/transmission/transmission-home:/config
       - ${PIDRIVE}/media/downloads:${PIDRIVE}/media/downloads
+    mem_limit: 128m
 
   #-------------------------------------#
   # Sonarr : tvshow manager
@@ -85,6 +86,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+    mem_limit: 256m
 
   #-------------------------------------#
   # Radarr : movie manager
@@ -106,6 +108,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+    mem_limit: 256m
 
   #-------------------------------------#1
   # Prowlarr : tvshow manager
@@ -125,6 +128,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+    mem_limit: 128m
 
   #-------------------------------------#
   # Tautulli : plex monitoring stack
@@ -144,6 +148,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+    mem_limit: 128m
 
   #-------------------------------------#
   # Tautulli-Hue-Cinema : Webhook for hue
@@ -159,6 +164,7 @@ services:
       - HUE_USERNAME
       - HUE_GROUP_ID
     restart: unless-stopped
+    mem_limit: 16m
 
   sponsor-block-tv:
     image: ghcr.io/dmunozv04/isponsorblocktv:v2.2.1
@@ -169,6 +175,7 @@ services:
       - PUID
       - PGID
       - TZ
+    mem_limit: 64m
 
 networks:
   proxy:
