@@ -20,7 +20,7 @@ services:
     mem_limit: 512m
 
   gluetun:
-    image: qmcgaw/gluetun:v3.39.1
+    image: qmcgaw/gluetun:v3.40.0
     container_name: gluetun
     devices:
       - /dev/net/tun:/dev/net/tun
