@@ -139,9 +139,9 @@ services:
     volumes:
       - ${PIDRIVE}/config/tautulli:/config
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID
+      - PGID
+      - TZ
     networks:
       - proxy
       - default
