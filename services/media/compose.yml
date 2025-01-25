@@ -128,7 +128,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-    mem_limit: 128m
+    mem_limit: 256m
 
   #-------------------------------------#
   # Tautulli : plex monitoring stack
