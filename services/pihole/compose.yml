@@ -11,9 +11,7 @@ services:
       - 127.0.0.1
       - 1.1.1.1
     environment:
-      - DHCP_ACTIVE=true
-      - DHCP_START=192.168.0.10
-      - DHCP_END=192.168.0.200
+      - DHCP_ACTIVE=false
       - DHCP_ROUTER=192.168.0.1
       - DNSMASQ_LISTENING=local
       - FTLCONF_LOCAL_IPV4=$HOST_IP
