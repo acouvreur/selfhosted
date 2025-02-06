@@ -110,7 +110,7 @@ services:
       - traefik.enable=true
     mem_limit: 256m
 
-  #-------------------------------------#1
+  #-------------------------------------#
   # Prowlarr : tvshow manager
   #-------------------------------------#
   prowlarr:
@@ -129,6 +129,27 @@ services:
     labels:
       - traefik.enable=true
     mem_limit: 256m
+
+  #-------------------------------------#
+  # Bazarr : subtitles manager
+  #-------------------------------------#
+  bazarr:
+    image: linuxserver/bazarr:1.5.1
+    container_name: bazarr
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      -  ${PIDRIVE}/config/bazarr:/config
+      - ${PIDRIVE}/media:${PIDRIVE}/media
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+    mem_limit: 512m
 
   #-------------------------------------#
   # Tautulli : plex monitoring stack

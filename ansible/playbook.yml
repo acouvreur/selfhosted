@@ -23,6 +23,7 @@
         - wget
         - jq
         - rsync
+        - sqlite3
       state: latest
       update_cache: true
 

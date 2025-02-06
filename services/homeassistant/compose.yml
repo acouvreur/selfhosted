@@ -18,6 +18,22 @@ services:
       - traefik.enable=true
       - traefik.http.services.homeassistant-hass.loadbalancer.server.port=8123
 
+  grocy:
+    container_name: grocy
+    image: linuxserver/grocy:4.4.0
+    volumes:
+      - ${PIDRIVE}/config/grocy:/config
+    environment:
+      - TZ
+      - PUID
+      - GUID
+    restart: unless-stopped
+    networks:
+      - proxy
+      - default
+    labels:
+      - traefik.enable=true
+
 networks:
   proxy:
     external: true

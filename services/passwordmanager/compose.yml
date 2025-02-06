@@ -14,7 +14,7 @@ services:
       - SMTP_PASSWORD
       - PUSH_ENABLED=true
       - PUSH_INSTALLATION_ID=${BW_INSTALLATION_ID}
-      - PUSH_INSTALLATION_KEY= ${BW_INSTALLATION_KEY}
+      - PUSH_INSTALLATION_KEY=${BW_INSTALLATION_KEY}
     volumes:
       - ${PIDRIVE}/config/vaultwarden-data/:/data/
     networks:
