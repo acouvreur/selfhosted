@@ -20,7 +20,7 @@ services:
 
   grocy:
     container_name: grocy
-    image: linuxserver/grocy:4.4.0
+    image: linuxserver/grocy:4.4.1
     volumes:
       - ${PIDRIVE}/config/grocy:/config
     environment:
