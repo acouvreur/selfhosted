@@ -114,7 +114,7 @@ services:
   # Prowlarr : tvshow manager
   #-------------------------------------#
   prowlarr:
-    image: linuxserver/prowlarr:1.30.2
+    image: linuxserver/prowlarr:1.32.2
     container_name: prowlarr
     volumes:
       - ${PIDRIVE}/config/prowlarr:/config
