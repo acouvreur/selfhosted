@@ -3,7 +3,7 @@ services:
   # Pihole : DNS Wide Ad blocking
   #-------------------------------------#
   pihole:
-    image: pihole/pihole:2025.03.0
+    image: pihole/pihole:2025.03.1
     container_name: pihole
     hostname: pihole
     network_mode: "host"
