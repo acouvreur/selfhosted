@@ -11,18 +11,22 @@ services:
       - 127.0.0.1
       - 1.1.1.1
     environment:
-      - DHCP_ACTIVE=false
-      - DHCP_ROUTER=192.168.0.1
-      - DNSMASQ_LISTENING=local
-      - FTLCONF_LOCAL_IPV4=$HOST_IP
-      - PIHOLE_DNS_=8.8.8.8;8.8.4.4
+      - PIHOLE_UID=$PUID
+      - PIHOLE_GID=$PGID
+      - FTLCONF_dhcp_active=false
+      - FTLCONF_dhcp_router=192.168.0.1
+      - FTLCONF_dns_listeningMode=local
+      - FTLCONF_dns_reply_host_IPv4=$HOST_IP
+      - FTLCONF_dns_upstreams=8.8.8.8;8.8.4.4
       - TZ
-      - WEB_PORT=8080 # Change default port 80 that conflicts with the Reverse Proxy on mode "host"
+      - FTLCONF_webserver_port=8080 # Change default port 80 that conflicts with the Reverse Proxy on mode "host"
     volumes:
       - '${PIDRIVE}/config/pihole/etc-pihole:/etc/pihole'
       - '${PIDRIVE}/config/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
     cap_add:
       - NET_ADMIN
+      - CAP_SYS_TIME
+      - CAP_SYS_NICE
     restart: unless-stopped
     labels:
       - traefik.enable=true
