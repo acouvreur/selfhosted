@@ -108,7 +108,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-    mem_limit: 256m
+    mem_limit: 512m
 
   #-------------------------------------#
   # Prowlarr : tvshow manager
@@ -141,7 +141,7 @@ services:
       - PGID
       - TZ
     volumes:
-      -  ${PIDRIVE}/config/bazarr:/config
+      - ${PIDRIVE}/config/bazarr:/config
       - ${PIDRIVE}/media:${PIDRIVE}/media
     networks:
       - proxy
