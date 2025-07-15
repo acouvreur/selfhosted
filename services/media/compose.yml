@@ -1,7 +1,7 @@
 services:
 
   plex:
-    image: linuxserver/plex:1.41.8
+    image: linuxserver/plex:1.41.9
     container_name: plex
     network_mode: host
     environment:
