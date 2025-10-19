@@ -188,7 +188,7 @@ services:
     mem_limit: 16m
 
   sponsor-block-tv:
-    image: ghcr.io/dmunozv04/isponsorblocktv:v2.6.0
+    image: ghcr.io/dmunozv04/isponsorblocktv:v2.6.1
     container_name: sponsor-block-tv
     volumes:
     -  ${PIDRIVE}/config/sponsor-block-tv:/app/data
