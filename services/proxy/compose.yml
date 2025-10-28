@@ -6,7 +6,7 @@ services:
   proxy:
     hostname: traefik
     container_name: proxy
-    image: traefik:v3.5.0
+    image: traefik:v3.5.4
     extra_hosts:
       - host.docker.internal:$HOST_IP
     ports:
