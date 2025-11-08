@@ -6,13 +6,14 @@ services:
   proxy:
     hostname: traefik
     container_name: proxy
-    image: traefik:v3.5.4
+    image: traefik:v3.6.0
     extra_hosts:
       - host.docker.internal:$HOST_IP
     ports:
       - 80:80
       - 443:443
     command: 
+      - --log.level=INFO
       - --api.dashboard=true
       - --api.insecure=true
       - --ping=true
@@ -31,13 +32,10 @@ services:
       - --accesslog.fields.names.StartUTC=drop
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
-      - --providers.docker.allowEmptyServices=true
-      # - --providers.docker.listAllContainers=true
       - --providers.docker.network=proxy
       - --providers.docker.defaultRule=Host(`{{ index .Labels "com.docker.compose.service" }}.${DOMAINNAME}`)
-      # - --providers.file.filename=/var/run/dynamic-config
       - --experimental.plugins.sablier.modulename=github.com/sablierapp/sablier
-      - --experimental.plugins.sablier.version=v1.8.1
+      - --experimental.plugins.sablier.version=v1.10.1
     environment:
       - OVH_ENDPOINT
       - OVH_APPLICATION_KEY
@@ -52,8 +50,6 @@ services:
       - default
       - proxy
     restart: unless-stopped
-    # secrets:
-    #   - dynamic-config
     labels:
       - traefik.enable=true
       - traefik.http.routers.proxy.service=api@internal
@@ -69,11 +65,6 @@ services:
       - proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
-# This does not work, because all it does is create a mount from file path of current host
-# secrets:
-#   dynamic-config:
-#     file: ./traefik/dynamic-config.yml
 
 networks:
   proxy:

@@ -11,7 +11,13 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+      - traefik.docker.allownonrunning=true
       - traefik.http.services.portainer-portainer.loadbalancer.server.port=9000
+      - traefik.http.routers.https-portainer-portainer.middlewares=sablier-portainer@docker
+      - traefik.http.middlewares.sablier-portainer.plugin.sablier.group=portainer
+      - traefik.http.middlewares.sablier-portainer.plugin.sablier.dynamic.displayName=Portainer
+      - traefik.http.middlewares.sablier-portainer.plugin.sablier.dynamic.theme=hacker-terminal
+      - traefik.http.middlewares.sablier-portainer.plugin.sablier.sessionDuration=10m
       - sablier.enable=true
       - sablier.group=portainer
 
