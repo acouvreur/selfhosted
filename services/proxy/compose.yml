@@ -55,7 +55,7 @@ services:
       - traefik.http.routers.proxy.service=api@internal
 
   sablier:
-    image: sablierapp/sablier:1.10.1
+    image: sablierapp/sablier:1.11.0
     container_name: sablier
     command:
       - start
