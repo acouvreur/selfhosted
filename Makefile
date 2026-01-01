@@ -44,4 +44,4 @@ hass:
 
 .DEFAULT_GOAL := all
 .PHONY : all
-all : pihole proxy media wireguard portainer passwordmanager hass
+all : pihole proxy media wireguard portainer passwordmanager
