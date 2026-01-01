@@ -34,8 +34,8 @@ services:
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=proxy
       - --providers.docker.defaultRule=Host(`{{ index .Labels "com.docker.compose.service" }}.${DOMAINNAME}`)
-      - --experimental.plugins.sablier.modulename=github.com/sablierapp/sablier
-      - --experimental.plugins.sablier.version=v1.10.1
+      - --experimental.plugins.sablier.modulename=github.com/sablierapp/sablier-traefik-plugin
+      - --experimental.plugins.sablier.version=v1.1.0
     environment:
       - OVH_ENDPOINT
       - OVH_APPLICATION_KEY
