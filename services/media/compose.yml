@@ -111,7 +111,7 @@ services:
     mem_limit: 512m
 
   #-------------------------------------#
-  # Prowlarr : tvshow manager
+  # Prowlarr : index manager
   #-------------------------------------#
   prowlarr:
     image: linuxserver/prowlarr:2.3.0
@@ -129,63 +129,6 @@ services:
     labels:
       - traefik.enable=true
     mem_limit: 256m
-
-  #-------------------------------------#
-  # Bazarr : subtitles manager
-  #-------------------------------------#
-  bazarr:
-    image: linuxserver/bazarr:1.5.3
-    container_name: bazarr
-    environment:
-      - PUID
-      - PGID
-      - TZ
-    volumes:
-      - ${PIDRIVE}/config/bazarr:/config
-      - ${PIDRIVE}/media:${PIDRIVE}/media
-    networks:
-      - proxy
-      - default
-    restart: unless-stopped
-    labels:
-      - traefik.enable=true
-    mem_limit: 512m
-
-  #-------------------------------------#
-  # Tautulli : plex monitoring stack
-  #-------------------------------------#
-  tautulli:
-    image: linuxserver/tautulli:2.16.0
-    container_name: tautulli
-    volumes:
-      - ${PIDRIVE}/config/tautulli:/config
-    environment:
-      - PUID
-      - PGID
-      - TZ
-    networks:
-      - proxy
-      - default
-    restart: unless-stopped
-    labels:
-      - traefik.enable=true
-    mem_limit: 128m
-
-  #-------------------------------------#
-  # Tautulli-Hue-Cinema : Webhook for hue
-  #-------------------------------------#
-  tautulli-hue-cinema:
-    image: acouvreur/tautulli-hue-cinema:2.0.2
-    container_name: tautulli-hue-cinema
-    environment:
-      - PUID
-      - PGID
-      - TZ
-      - HUE_BRIDGE_HOST
-      - HUE_USERNAME
-      - HUE_GROUP_ID
-    restart: unless-stopped
-    mem_limit: 16m
 
   sponsor-block-tv:
     image: ghcr.io/dmunozv04/isponsorblocktv:v2.6.1
