@@ -141,6 +141,27 @@ services:
       - TZ
     mem_limit: 64m
 
+  memos:
+    image: neosmemo/memos:0.25.3
+    container_name: memos
+    volumes:
+      - ${PIDRIVE}/config/memos:/var/opt/memos
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.allownonrunning=true
+      - traefik.http.services.media-memos.loadbalancer.server.port=5230
+      - traefik.http.routers.https-media-memos.middlewares=sablier-memos@docker
+      - traefik.http.middlewares.sablier-memos.plugin.sablier.group=memos
+      - traefik.http.middlewares.sablier-memos.plugin.sablier.dynamic.displayName=memos
+      - traefik.http.middlewares.sablier-memos.plugin.sablier.dynamic.theme=hacker-terminal
+      - traefik.http.middlewares.sablier-memos.plugin.sablier.sessionDuration=10m
+      - sablier.enable=true
+      - sablier.group=memos
+
 networks:
   proxy:
     external: true
