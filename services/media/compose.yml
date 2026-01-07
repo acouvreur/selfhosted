@@ -162,6 +162,46 @@ services:
       - sablier.enable=true
       - sablier.group=memos
 
+  redis:
+    image: docker.io/library/redis:8
+    container_name: paperless-redis
+    restart: unless-stopped
+    volumes:
+      - ${PIDRIVE}/config/paperless-ngx/redis:/data
+    networks:
+      - default
+
+  paperless:
+    image: paperlessngx/paperless-ngx:2.20.3
+    restart: unless-stopped
+    container_name: paperless
+    depends_on:
+      - redis
+    volumes:
+      - ${PIDRIVE}/config/paperless-ngx/data:/usr/src/paperless/data
+      - ${PIDRIVE}/config/paperless-ngx/media:/usr/src/paperless/media
+      - ${PIDRIVE}/config/paperless-ngx/export:/usr/src/paperless/export
+      - ${PIDRIVE}/config/paperless-ngx/consume:/usr/src/paperless/consume
+    networks:
+      - proxy
+      - default
+    environment:
+      - USERMAP_UID=$PUID
+      - USERMAP_GID=$PGID
+      - PAPERLESS_TIME_ZONE=$TZ
+      - PAPERLESS_REDIS=redis://redis:6379
+      - PAPERLESS_URL=https://paperless.${DOMAINNAME}
+      - PAPERLESS_SECRET_KEY
+      - PAPERLESS_OCR_LANGUAGE=eng
+      - PAPERLESS_OCR_LANGUAGES=fra
+      # Raspberry Pi processing power optimizations
+      - PAPERLESS_TASK_WORKERS=2
+      - PAPERLESS_THREADS_PER_WORKER=1
+      - PAPERLESS_WEBSERVER_WORKERS=1
+      - PAPERLESS_ENABLE_NLTK=1
+    labels:
+      - traefik.enable=true
+
 networks:
   proxy:
     external: true
