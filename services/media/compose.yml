@@ -172,7 +172,7 @@ services:
       - default
 
   paperless:
-    image: paperlessngx/paperless-ngx:2.20.3
+    image: paperlessngx/paperless-ngx:2.20.9
     restart: unless-stopped
     container_name: paperless
     depends_on:
