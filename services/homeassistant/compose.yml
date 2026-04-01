@@ -1,7 +1,7 @@
 services:
   homeassistant:
     container_name: hass
-    image: homeassistant/home-assistant:2026.2
+    image: homeassistant/home-assistant:2026.4
     volumes:
       - ${PIDRIVE}/config/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
