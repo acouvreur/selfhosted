@@ -142,7 +142,7 @@ services:
     mem_limit: 64m
 
   memos:
-    image: neosmemo/memos:0.25.3
+    image: neosmemo/memos:0.28.0
     container_name: memos
     volumes:
       - ${PIDRIVE}/config/memos:/var/opt/memos
